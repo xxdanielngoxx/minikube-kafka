@@ -1,0 +1,118 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: zookeeper-1
+    namespace: kafka
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: zookeeper-1
+    template:
+        metadata:
+            labels:
+                app: zookeeper-1
+            name: zookeeper-1
+        spec:
+            containers:
+            - name: zookeeper-1
+              image: confluentinc/cp-zookeeper:latest
+              ports:
+              - containerPort: 2181
+              env:
+              - name: ZOOKEEPER_SERVER_ID
+                value: "1"
+              - name: ZOOKEEPER_CLIENT_PORT
+                value: "2181"
+              - name: ZOOKEEPER_TICK_TIME
+                value: "2000"
+              - name: ZOOKEEPER_INIT_LIMIT
+                value: "5"
+              - name: ZOOKEEPER_SYNC_LIMIT
+                value: "2"
+              - name: ZOOKEEPER_SERVER_1
+                value: zookeeper-svc-1
+              - name: ZOOKEEPER_SERVER_2
+                value: zookeeper-svc-2
+              - name: ZOOKEEPER_SERVER_3
+                value: zookeeper-svc-3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: zookeeper-2
+    namespace: kafka
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: zookeeper-2
+    template:
+        metadata:
+            labels:
+                app: zookeeper-2
+            name: zookeeper-2
+        spec:
+            containers:
+            - name: zookeeper-2
+              image: confluentinc/cp-zookeeper:latest
+              ports:
+              - containerPort: 2181
+              env:
+              - name: ZOOKEEPER_SERVER_ID
+                value: "1"
+              - name: ZOOKEEPER_CLIENT_PORT
+                value: "2181"
+              - name: ZOOKEEPER_TICK_TIME
+                value: "2000"
+              - name: ZOOKEEPER_INIT_LIMIT
+                value: "5"
+              - name: ZOOKEEPER_SYNC_LIMIT
+                value: "2"
+              - name: ZOOKEEPER_SERVER_1
+                value: zookeeper-svc-1
+              - name: ZOOKEEPER_SERVER_2
+                value: zookeeper-svc-2
+              - name: ZOOKEEPER_SERVER_3
+                value: zookeeper-svc-3
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: zookeeper-3
+    namespace: kafka
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: zookeeper-3
+    template:
+        metadata:
+            labels:
+                app: zookeeper-3
+            name: zookeeper-3
+        spec:
+            containers:
+            - name: zookeeper-3
+              image: confluentinc/cp-zookeeper:latest
+              ports:
+              - containerPort: 2181
+              env:
+              - name: ZOOKEEPER_SERVER_ID
+                value: "1"
+              - name: ZOOKEEPER_CLIENT_PORT
+                value: "2181"
+              - name: ZOOKEEPER_TICK_TIME
+                value: "2000"
+              - name: ZOOKEEPER_INIT_LIMIT
+                value: "5"
+              - name: ZOOKEEPER_SYNC_LIMIT
+                value: "2"
+              - name: ZOOKEEPER_SERVER_1
+                value: zookeeper-svc-1
+              - name: ZOOKEEPER_SERVER_2
+                value: zookeeper-svc-2
+              - name: ZOOKEEPER_SERVER_3
+                value: zookeeper-svc-3
+

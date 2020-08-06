@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: kafka-node-1
+    namespace: kafka
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: kafka-node-1
+    template:
+        metadata:
+            labels:
+                app: kafka-node-1
+        spec:
+            containers:
+            - name: kafka-node-1
+              image: confluentinc/cp-kafka:latest
+              ports:
+              - containerPort: 9092
+              env:
+              - name: KAFKA_BROKER_ID
+                value: "1"
+              - name: KAFKA_ZOOKEEPER_CONNECT 
+                value: zookeeper-svc-1:2181,zookeeper-svc-2:2181,zookeeper-svc-3:2181
+              - name: KAFKA_ADVERTISED_LISTENERS
+                value: PLAINTEXT://kafka-svc-1:9092
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: kafka-node-2
+    namespace: kafka
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: kafka-node-2
+    template:
+        metadata:
+            labels:
+                app: kafka-node-2
+        spec:
+            containers:
+            - name: kafka-node-2
+              image: confluentinc/cp-kafka:latest
+              ports:
+              - containerPort: 9092
+              env:
+              - name: KAFKA_BROKER_ID
+                value: "2"
+              - name: KAFKA_ZOOKEEPER_CONNECT 
+                value: zookeeper-svc-1:2181,zookeeper-svc-2:2181,zookeeper-svc-3:2181
+              - name: KAFKA_ADVERTISED_LISTENERS
+                value: PLAINTEXT://kafka-svc-2:9092
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: kafka-node-3
+    namespace: kafka
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: kafka-node-3
+    template:
+        metadata:
+            labels:
+                app: kafka-node-3
+        spec:
+            containers:
+            - name: kafka-node-3
+              image: confluentinc/cp-kafka:latest
+              ports:
+              - containerPort: 9092
+              env:
+              - name: KAFKA_BROKER_ID
+                value: "3"
+              - name: KAFKA_ZOOKEEPER_CONNECT 
+                value: zookeeper-svc-1:2181,zookeeper-svc-2:2181,zookeeper-svc-3:2181
+              - name: KAFKA_ADVERTISED_LISTENERS
+                value: PLAINTEXT://kafka-svc-3:9092
